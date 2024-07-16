@@ -1,0 +1,38 @@
+CREATE TABLE CURSO (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    area VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE AUTOR (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    documento VARCHAR(12) NOT NULL UNIQUE,
+    estado TINYINT NOT NULL,
+    telefono VARCHAR(13) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE TOPICO (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL UNIQUE,
+    mensaje VARCHAR(300) NOT NULL,
+    fecha VARCHAR(16) NOT NULL,
+    status TINYINT NOT NULL,
+    autor_id BIGINT NOT NULL,
+    curso_id BIGINT NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_topico_autor_id FOREIGN KEY (autor_id) REFERENCES AUTOR(id),
+    CONSTRAINT fk_topico_curso_id FOREIGN KEY (curso_id) REFERENCES CURSO(id)
+);
+CREATE TABLE RESPUESTA (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    mensaje VARCHAR(100) NOT NULL,
+    fecha VARCHAR(6) NOT NULL,
+    status TINYINT NOT NULL,
+    topico_id BIGINT NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_mensaje_topico_id FOREIGN KEY (topico_id) REFERENCES TOPICO(id)
+);
